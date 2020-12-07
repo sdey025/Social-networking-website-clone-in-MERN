@@ -14,6 +14,7 @@ const Postschema = new mongoose.Schema({
         type:String,
         required:true
     },
+    likes:[{type:ObjectId,ref:"User"}],
     postedby:{
         type:ObjectId,
         ref:"User" //building relation in mongodb

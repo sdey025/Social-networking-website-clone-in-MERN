@@ -5,7 +5,7 @@ const requirelogin = require('../middleware/requirelogin')
 const mongoose = require('mongoose')
 const Post = mongoose.model('post')
 
-router.get('/allpost',(req,res) => {
+router.get('/allpost',requirelogin,(req,res) => {
     Post.find()
     .populate("postedby","_id name")
     .then(posts => {
@@ -25,7 +25,7 @@ router.post('/posts',requirelogin,(req,res) => {
         title,
         body,
         photo:pic,
-        postedby:req.user._id
+        postedby:req.user
     }) 
     post.save()
     .then(result => {
@@ -37,7 +37,7 @@ router.post('/posts',requirelogin,(req,res) => {
 })
 
 //this will show all the posts by user who is logged in
-router.get('/mypost',(req,res) => {
+router.get('/mypost',requirelogin,(req,res) => {
     console.log(req.user)
     Post.find({postedby:req.user._id})
     .populate('postedby', '_id name')
@@ -46,6 +46,34 @@ router.get('/mypost',(req,res) => {
     })
     .catch(err => {
         console.log(err);
+    })
+})
+router.put('/like',requirelogin,(req,res) => {
+    Post.findByIdAndUpdate(req.body.postid,{
+        $push:{likes:req.user._id} //$push is used to push record into array
+    },{
+        new:true
+    }).exec((err,result) => {
+        if(err){
+            return res.send(err)
+        }
+        else{
+            res.json(result)
+        }
+    })
+})
+router.put('/unlike',requirelogin,(req,res) => {
+    Post.findByIdAndUpdate(req.body.postid,{
+        $pull:{likes:req.user._id} // $pull is used to remove record from array
+    },{
+        new:true
+    }).exec((err,result) => {
+        if(err){
+            return res.send(err)
+        }
+        else{
+            res.json(result)
+        }
     })
 })
 module.exports = router
