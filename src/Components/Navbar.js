@@ -22,8 +22,8 @@ function Navbar() {
         <div>
             <nav>
                 <div className="nav-wrapper white">
-                <Link to={state ? '/' : '/signin'} className="brand-logo">SocialHub.</Link>
-                <ul id="nav-mobile" className="right">
+                <Link to={state ? '/' : '/signin'} className="brand-logo" style={{marginLeft:'20px'}}>SocialHub.</Link>
+                <ul id="nav-mobile" className="right" style={{marginRight:'20px'}}>
                     {renderList()}
                 </ul>
                 </div>
