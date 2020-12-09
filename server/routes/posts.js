@@ -118,6 +118,7 @@ router.delete('/deletepost/:postId',requirelogin,(req,res) => {
 })
 /* router.delete('/deletecomment/:commentId',requirelogin,(req,res) => {
     Post.findOne({_id:req.params.commentId})
+    .populate("comments.postedBy","_id")
     .populate("postedBy","_id")
     .exec((err,post) => {
         if(err || !post) {

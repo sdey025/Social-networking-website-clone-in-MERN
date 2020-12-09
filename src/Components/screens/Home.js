@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useContext} from 'react'
 import {UserContext} from '../../App'
+import {Link} from 'react-router-dom' 
 import M from 'materialize-css'
 function Home() {
     const {state, dispatch} = useContext(UserContext)
@@ -123,7 +124,7 @@ function Home() {
                 return (
                     
                     <div className="card homecard" key={item._id}> 
-                        <h5>{item.postedby.name} {state._id == item.postedby._id ? <i className="material-icons" title="delete post" onClick={()=>deletepost(item._id)} style={{float:'right',cursor:'pointer'}}>close</i> : <i className="material-icons" title="delete post" style={{float:'right',cursor:'pointer'}}>report_problem</i>}</h5>
+                        <h5><Link to={state._id != item.postedby._id ? '/profile/'+item.postedby._id : '/profile'}>{item.postedby.name}</Link> {state._id == item.postedby._id ? <i className="material-icons" title="delete post" onClick={()=>deletepost(item._id)} style={{float:'right',cursor:'pointer'}}>close</i> : <i className="material-icons" title="delete post" style={{float:'right',cursor:'pointer'}}>report_problem</i>}</h5>
                         <div className="card-image">
                             <img src={item.photo}/>
                         </div>

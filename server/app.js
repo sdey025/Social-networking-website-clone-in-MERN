@@ -22,6 +22,7 @@ app.use(require('./routes/auth'))
 require('./models/Post')
 
 app.use(require('./routes/posts'))
+app.use(require('./routes/user'))
 
 require('./models/Comment')
 app.use(require('./routes/comment'))

@@ -11,7 +11,6 @@ function Navbar() {
                 <li><button onClick={() =>{ localStorage.clear()
                      dispatch({type:"CAR"})
                      history.push('/signin')}} 
-                     
                      className="waves-effect waves-light btn #ad1457 pink darken-3">Logout</button></li>]
         }else{
             return[ <li><Link to="/signin">Login</Link></li>,
