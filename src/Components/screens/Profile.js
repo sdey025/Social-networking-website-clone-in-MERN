@@ -2,6 +2,8 @@ import React,{useEffect,useState,useContext} from 'react'
 import {UserContext} from '../../App'
 function Profile() {
     const [pics, setpics] = useState([])
+    const [followers, setfollowers] = useState([])
+    const [following, setfollowing] = useState([])
     const {state, dispatch} = useContext(UserContext)
     useEffect(() => {
         fetch('/mypost',{
@@ -10,10 +12,13 @@ function Profile() {
             }
             }).then(res => res.json())
             .then(result =>{
-                /* console.log(result) */
+                 console.log(result) 
+               /*  setfollowers(result.result.followers)
+                setfollowing(result.result.following) */
                 setpics(result.posts)
         })
     },[])
+
     return (
         <div style={{maxWidth: '550px',margin:'0px auto'}}>
             <div style={{display: 'flex',justifyContent: 'space-around', margin:'18px 0px', borderBottom:'1px solid black'}}>
@@ -23,9 +28,9 @@ function Profile() {
                 <div>
                     <h4>{state ? state.name : null}</h4>
                     <div style={{display:'flex',justifyContent:'space-between',width:'118%'}}>
-                        <h5>40 Posts</h5>
-                        <h5>33 Followers</h5>
-                        <h5>70 Following</h5>
+                        <h5>{pics.length} Posts</h5>
+                        <h5>{state.result.followers.length} Followers</h5>
+                        <h5>{state.result.following.length} Following</h5>
                     </div>
                 </div>
             </div>
